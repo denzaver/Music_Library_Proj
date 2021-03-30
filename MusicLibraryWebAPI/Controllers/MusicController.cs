@@ -23,7 +23,7 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<MusicController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
             return new string[] { "value1", "value2" };
         }
