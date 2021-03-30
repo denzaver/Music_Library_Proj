@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MusicLibraryWebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace MusicLibraryWebAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Song> Songs { get; set; }
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
