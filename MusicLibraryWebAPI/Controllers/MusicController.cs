@@ -23,16 +23,24 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<MusicController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get(int id)
         {
-            return new string[] { "value1", "value2" };
+            var song = _context.Songs.Where(x => x.Id == id).FirstOrDefault();
+            if (song == null)
+            { 
+                return NotFound();
+            }
+
+            return Ok(song);
+           
         }
 
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value" + id;
+            var song = _context.Songs.Find(id);
+            return Ok(song);
         }
 
         // POST api/<MusicController>
@@ -54,8 +62,18 @@ namespace MusicLibraryWebAPI.Controllers
 
         // PUT api/<MusicController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Song song)
         {
+            try
+            {
+                _context.Songs.Update(song);
+                _context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception derrrrrrp)
+            {
+                return BadRequest(derrrrrrp);
+            }
         }
 
         // DELETE api/<MusicController>/5
