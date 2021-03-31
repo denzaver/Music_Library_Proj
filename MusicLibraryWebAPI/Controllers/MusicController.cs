@@ -23,10 +23,16 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<MusicController>
         [HttpGet]
-        public IActionResult GetAll(int id)
+        public IQueryable<SongDTO> GetAll()
         {
-            var song = _context.Songs.ToList();
-            return Ok(song);
+            var songs = from s in _context.Songs
+                       select new SongDTO()
+                       {
+                           Id = s.Id,
+                           Title = s.Title,
+                           Artist = s.Artist,
+                       };
+            return songs;
         }
 
         // GET api/<MusicController>/5
