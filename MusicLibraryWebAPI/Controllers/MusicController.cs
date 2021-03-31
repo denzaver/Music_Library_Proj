@@ -23,7 +23,7 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<MusicController>
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
@@ -45,9 +45,9 @@ namespace MusicLibraryWebAPI.Controllers
                 _context.SaveChanges();
                 return Ok();
             }
-            catch
+            catch (Exception err)
             {
-                return BadRequest();
+                return BadRequest(err);
 
             }
         }
