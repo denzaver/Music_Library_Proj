@@ -41,7 +41,6 @@ namespace MusicLibraryWebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Song song)
         {
-
             try
             {
                 _context.Songs.Add(song);
@@ -62,11 +61,11 @@ namespace MusicLibraryWebAPI.Controllers
             {
                 _context.Entry(song).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
-                return Ok();
+                return Ok(song);
             }
-            catch (Exception derrrrrrp)
+            catch (Exception durrrrrrp)
             {
-                return BadRequest(derrrrrrp);
+                return BadRequest(durrrrrrp);
             }
         }
 
