@@ -78,7 +78,7 @@ namespace MusicLibraryWebAPI.Controllers
                  var song = _context.Songs.Where(s => s.Id == id).FirstOrDefault();
                 _context.Remove(song);
                 _context.SaveChanges();
-                return Ok();
+                return Ok(song);
             }
             catch (Exception derrrrrrp)
             {
