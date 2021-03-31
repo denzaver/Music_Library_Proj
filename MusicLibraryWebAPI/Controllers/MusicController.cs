@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MusicLibraryWebAPI.Data;
 using MusicLibraryWebAPI.Models;
 using System;
@@ -37,11 +38,21 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        
+        public async Task<IActionResult> GetSong(int id)
         {
-            var song = _context.Songs.Where(x => x.Id == id);
+            var song = await _context.Songs.Select(s => new SongDetailsDto()
+            {
+                Id = s.Id,
+                Title = s.Title,
+                Artist = s.Artist,
+                Album = s.Album,
+                ReleaseDate = s.ReleaseDate
+            }).SingleOrDefaultAsync(s => s.Id == id);
+
             return Ok(song);
         }
+
 
         // POST api/<MusicController>
         [HttpPost]
@@ -51,7 +62,7 @@ namespace MusicLibraryWebAPI.Controllers
             {
                 _context.Songs.Add(song);
                 _context.SaveChanges();
-                return CreatedAtAction(nameof(Get), new { Id = song.Id }, song);
+                return CreatedAtAction(nameof(GetSong), new { Id = song.Id }, song);
             }
             catch (Exception err)
             {

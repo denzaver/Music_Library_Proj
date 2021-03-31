@@ -9,7 +9,7 @@ using MusicLibraryWebAPI.Data;
 namespace MusicLibraryWebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210330182630_init")]
+    [Migration("20210331234615_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
