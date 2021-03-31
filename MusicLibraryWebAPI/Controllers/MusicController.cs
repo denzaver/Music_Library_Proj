@@ -41,16 +41,16 @@ namespace MusicLibraryWebAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Song song)
         {
+
             try
             {
                 _context.Songs.Add(song);
                 _context.SaveChanges();
-                return Ok();
+                return CreatedAtAction(nameof(Get), new { Id = song.Id }, song);
             }
             catch (Exception err)
             {
                 return BadRequest(err);
-
             }
         }
 
@@ -60,7 +60,7 @@ namespace MusicLibraryWebAPI.Controllers
         {
             try
             {
-                _context.Songs.Update(song);
+                _context.Entry(song).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _context.SaveChanges();
                 return Ok();
             }
@@ -76,7 +76,7 @@ namespace MusicLibraryWebAPI.Controllers
         {
             try
             {
-                 var song = _context.Songs.Where(s => s.Id == id);
+                 var song = _context.Songs.Where(s => s.Id == id).FirstOrDefault();
                 _context.Remove(song);
                 _context.SaveChanges();
                 return Ok();
