@@ -23,23 +23,17 @@ namespace MusicLibraryWebAPI.Controllers
 
         // GET: api/<MusicController>
         [HttpGet]
-        public IActionResult Get(int id)
+        public IActionResult GetAll(int id)
         {
-            var song = _context.Songs.Where(x => x.Id == id).FirstOrDefault();
-            if (song == null)
-            { 
-                return NotFound();
-            }
-
+            var song = _context.Songs.ToList();
             return Ok(song);
-           
         }
 
         // GET api/<MusicController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var song = _context.Songs.Find(id);
+            var song = _context.Songs.Where(x => x.Id == id);
             return Ok(song);
         }
 
