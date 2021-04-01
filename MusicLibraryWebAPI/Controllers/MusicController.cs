@@ -53,7 +53,6 @@ namespace MusicLibraryWebAPI.Controllers
             return Ok(song);
         }
 
-
         // POST api/<MusicController>
         [HttpPost]
         public IActionResult Post([FromBody] Song song)
@@ -80,9 +79,9 @@ namespace MusicLibraryWebAPI.Controllers
                 _context.SaveChanges();
                 return Ok(song);
             }
-            catch (Exception durrrrrrp)
+            catch (Exception durrrrrp)
             {
-                return BadRequest(durrrrrrp);
+                return BadRequest(durrrrrp);
             }
         }
 
@@ -101,8 +100,6 @@ namespace MusicLibraryWebAPI.Controllers
             {
                 return BadRequest(derrrrrrp);
             }
-
-
         }
     }
 }
